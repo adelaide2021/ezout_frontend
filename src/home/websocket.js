@@ -1,19 +1,10 @@
-import data from "./mock";
-
-const randomData = (d) => {
-  const index = parseInt(Math.random() * data.length - 2);
-  const length = parseInt(Math.random() * 10);
-  return data.slice(index, index + length);
-};
-
 export default class Socket {
-  constructor(url, isMock) {
-    this.isMock = isMock;
+  constructor(url) {
     this.open = null;
     this.message = null;
     this.close = null;
     this.error = null;
-    if (url && !isMock) {
+    if (url) {
       this.socket = new WebSocket(url);
       const socket = this.socket;
       socket.addEventListener("open", () => {
@@ -21,7 +12,8 @@ export default class Socket {
       });
 
       socket.addEventListener("message", (event) => {
-        this.message && this.message(event.data);
+        const data = JSON.parse(event.data);
+        this.message && this.message(data);
       });
 
       socket.addEventListener("close", () => {
@@ -31,15 +23,6 @@ export default class Socket {
       socket.addEventListener("error", (err) => {
         this.error && this.error(err);
       });
-    }
-
-    if (isMock) {
-      setTimeout(() => {
-        this.message && this.message(data);
-      }, 500);
-      setInterval(() => {
-        this.message && this.message(randomData());
-      }, 10000);
     }
   }
 
@@ -51,17 +34,7 @@ export default class Socket {
   }
 
   send(msg) {
-    if (this.isMock) {
-      // 模拟发送
-      console.log("模拟发送", msg);
-      setTimeout(() => {
-        this.message(
-          data.filter((e) =>
-            msg.shopId === "" ? true : e.shop_id == msg.shopId
-          )
-        );
-      }, Math.random() * 300);
-    } else this.socket.send(msg);
+    this.socket.send(msg);
   }
   close() {
     this.socket.close();

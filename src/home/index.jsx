@@ -4,19 +4,21 @@ import { columns, dataFormat } from "./utils.jsx";
 import Socket from "./websocket";
 import "./index.css";
 
-let isMock = true;
-const socket = new Socket("ws://localhost:8080/ws/1", false);
+const socket = new Socket("ws://localhost:8080/ws/1");
 
 const Index = () => {
   let [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  
   socket.addListener({
     message: (mes) => {
+      console.log("print fron index.js: ", mes)
       setLoading(false);
       setData(mes);
     },
   });
+  
   useEffect(() => {});
 
   const handelChange = (v) => {
@@ -31,7 +33,7 @@ const Index = () => {
           <Space>
             shop id
             <Input
-              placeholder="请输入"
+              placeholder="Please input shop_id"
               style={{ width: "200px" }}
               onBlur={handelChange}
               onKeyDown={(e) => {
