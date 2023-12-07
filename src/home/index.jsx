@@ -4,22 +4,42 @@ import { columns, dataFormat } from "./utils.jsx";
 import Socket from "./websocket";
 import "./index.css";
 
-const socket = new Socket("ws://localhost:8080/ws/1");
+// const socket = new Socket("ws://localhost:8080/ws/1");
+
 
 const Index = () => {
   let [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const socket = new Socket("ws://localhost:8080/ws/1");
+
+
+  // socket.addListener({
+  //   message: (mes) => {
+  //     console.log("print fron index.js: ", mes)
+  //     setLoading(false);
+  //     setData(mes);
+  //   },
+  // });
   
-  socket.addListener({
-    message: (mes) => {
-      console.log("print fron index.js: ", mes)
-      setLoading(false);
-      setData(mes);
-    },
-  });
-  
-  useEffect(() => {});
+  // useEffect(() => {});
+  useEffect(() => {
+    // 设置WebSocket侦听器
+    socket.addListener({
+      message: (mes) => {
+        console.log("print fron index.js: ", mes);
+        setLoading(false);
+        // 使用新数据更新状态
+        setData(mes);
+      },
+    });
+
+    // 清理函数，在组件卸载时关闭WebSocket连接
+    return () => {
+      // socket.closeSocket();
+    };
+  }, []);
+
 
   const handelChange = (v) => {
     setLoading(true);

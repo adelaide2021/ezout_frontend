@@ -6,29 +6,28 @@ const columns = [
     title: "session id",
     dataIndex: "session_id",
     key: "session_id",
-    width: 100,
+    width: 200,
     align: 'center'
   },
   {
     title: "shop id",
     dataIndex: "shop_id",
     key: "shop_id",
-    width: 300,
+    width: 200,
     align: 'center'
   },
   {
     title: "shopper id",
     dataIndex: "shopper_id",
     key: "shopper_id",
-    width: 120,
+    width: 200,
     align: 'center'
   },
   {
     title: "action id",
     dataIndex: "action_id",
     key: "action_id",
-    width: 150,
-    fixed: 'left',
+    width: 100,
   },
   {
     title: "create time",
@@ -37,7 +36,7 @@ const columns = [
     render: (_, { create_time }) => {
       return moment(create_time).format("yyyy-MM-DD HH:mm:ss");
     },
-    width: 160,
+    width: 150,
     align: 'center'
   },
   {
@@ -53,44 +52,25 @@ const columns = [
     title: "product name",
     dataIndex: "product_name",
     key: "product_name",
-    width: 150,
-    fixed: 'left',
+    width: 100,
   },
   {
     title: "product id",
     dataIndex: "product_id",
     key: "product_id",
-    width: 110,
+    width: 100,
   },
-  // {
-  //   title: "product price",
-  //   dataIndex: "product_price",
-  //   key: "product_price",
-  //   width: 120,
-  //   align: 'center'
-  // },
-  // {
-  //   title: "shopper id",
-  //   dataIndex: "shopper_id",
-  //   key: "shopper_id",
-  //   width: 300,
-  //   align: 'center'
-  // },
-
-
- 
-  // {
-  //   title: "action id",
-  //   dataIndex: "actionId",
-  //   key: "actionId",
-  //   width: 100,
-  //   align: 'center'
-  // },
+  {
+    title: "product price",
+    dataIndex: "product_price",
+    key: "product_price",
+    width: 100,
+  },
   {
     title: "UPC",
-    dataIndex: "UPC",
-    key: "UPC",
-    width: 140,
+    dataIndex: "upc",
+    key: "upc",
+    width: 150,
   },
   {
     title: "category id",
@@ -110,9 +90,6 @@ const columns = [
 
 const dataFormat = (data) => {
   return data.map((e) => {
-    // e.id = e._id?.$oid;
-    // e.actionId = e.action_id?.$numberInt;
-    // return e;
     return {
       session_id: e.session_id,
       shop_id: e.shop_id,
@@ -121,10 +98,13 @@ const dataFormat = (data) => {
       create_time: moment(e.create_time).format("yyyy-MM-DD HH:mm:ss"),
       action: e.action,
       product_name: e.product_name,
-      UPC: e.UPC,
+      product_id: e.product_id,
+      product_price: e.product_price,
+      upc: e.upc,
       category_id: e.category_id,
       basket_total: e.basket_total,
     };
   });
 };
+
 export { columns, dataFormat };

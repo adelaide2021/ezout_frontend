@@ -36,7 +36,7 @@ export default class Socket {
   send(msg) {
     this.socket.send(msg);
   }
-  close() {
+  closeSocket() {
     this.socket.close();
   }
 }
