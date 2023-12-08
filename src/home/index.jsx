@@ -28,7 +28,6 @@ const Index = () => {
 
   const handelChange = (v) => {
     setLoading(true);
-    // socket.send({ shopId: v.target.value });
     const newShopId = v.target.value;
     socket.send(JSON.stringify({ action: 'updateShopId', shopId: newShopId }));
     console.log("from front en indes " + newShopId)
@@ -45,7 +44,7 @@ const Index = () => {
               style={{ width: "200px" }}
               onBlur={handelChange}
               onKeyDown={(e) => {
-                console.log(e);
+                // console.log(e);
                 if (e.key === "Enter") {
                   handelChange(e);
                 }
